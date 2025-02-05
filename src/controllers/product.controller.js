@@ -1,7 +1,6 @@
-import { Request, Response } from "express";
 import * as productService from "../services/product.service";
 
-export const getAllProducts = async (req: Request, res: Response) => {
+export const getAllProducts = async (req, res) => {
   try {
     const products = await productService.getAllProducts(req.query);
     res.json(products);
@@ -10,7 +9,7 @@ export const getAllProducts = async (req: Request, res: Response) => {
   }
 };
 
-export const getProductById = async (req: Request, res: Response) => {
+export const getProductById = async (req, res)=> {
   try {
     const product = await productService.getProductById(req.params.id);
     if (!product) return res.status(404).json({ error: "Product not found" });
@@ -20,7 +19,7 @@ export const getProductById = async (req: Request, res: Response) => {
   }
 };
 
-export const createProduct = async (req: Request, res: Response) => {
+export const createProduct = async (req, res) => {
   try {
     const product = await productService.createProduct(req.body);
     res.status(201).json(product);
@@ -29,7 +28,7 @@ export const createProduct = async (req: Request, res: Response) => {
   }
 };
 
-export const updateProduct = async (req: Request, res: Response) => {
+export const updateProduct = async (req, res) => {
   try {
     const product = await productService.updateProduct(req.params.id, req.body);
     if (!product) return res.status(404).json({ error: "Product not found" });
@@ -39,7 +38,7 @@ export const updateProduct = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteProduct = async (req: Request, res: Response) => {
+export const deleteProduct = async (req, res) => {
   try {
     await productService.deleteProduct(req.params.id);
     res.json({ message: "Product deleted" });
