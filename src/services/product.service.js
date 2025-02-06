@@ -3,7 +3,7 @@ const Product= require('../models/product.model');
 // import Product, { IProduct } from "../models/product.model";
 
  const getAllProducts = async (filters = {}) => {
-  return await Product.find(filters).populate("category");
+  return await Product.find().populate("category");
 };
 
  const getProductById = async (id) => {

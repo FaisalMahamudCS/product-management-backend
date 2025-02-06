@@ -1,12 +1,13 @@
 const express = require("express");
-const Order = require("../models/Order");
-const Product = require("../models/Product");
-const { protect, isAdmin } = require("../middleware/authMiddleware");
+const Order = require("../../models/order.model");
+const Product = require("../../models/product.model");
+const { protect, isAdmin } = require("../../middlewares/middleware");
+const { authenticate, authorizeAdmin } = require("../../middlewares/middleware");
 
 const router = express.Router();
 
 //  Fetch all orders (Admin only)
-router.get("/", protect, isAdmin, async (req, res) => {
+router.get("/", authenticate, authorizeAdmin, async (req, res) => {
   try {
     const orders = await Order.find().populate("user", "name email").populate("items.product", "name price");
     res.json(orders);
@@ -16,7 +17,7 @@ router.get("/", protect, isAdmin, async (req, res) => {
 });
 
 //  Place a new order (User only)
-router.post("/", protect, async (req, res) => {
+router.post("/", authenticate, async (req, res) => {
   try {
     const { items } = req.body;
     if (!items || items.length === 0) return res.status(400).json({ error: "No items in order" });
@@ -40,7 +41,7 @@ router.post("/", protect, async (req, res) => {
 });
 
 //  Fetch a single order
-router.get("/:id", protect, async (req, res) => {
+router.get("/:id", authenticate, async (req, res) => {
   try {
     const order = await Order.findById(req.params.id).populate("user", "name email").populate("items.product", "name price");
     if (!order) return res.status(404).json({ error: "Order not found" });
