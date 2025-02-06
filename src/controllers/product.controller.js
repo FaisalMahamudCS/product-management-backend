@@ -1,6 +1,6 @@
-import * as productService from "../services/product.service";
+const productService = require("../services/product.service");
 
-export const getAllProducts = async (req, res) => {
+ const getAllProducts = async (req, res) => {
   try {
     const products = await productService.getAllProducts(req.query);
     res.json(products);
@@ -9,7 +9,7 @@ export const getAllProducts = async (req, res) => {
   }
 };
 
-export const getProductById = async (req, res)=> {
+ const getProductById = async (req, res)=> {
   try {
     const product = await productService.getProductById(req.params.id);
     if (!product) return res.status(404).json({ error: "Product not found" });
@@ -19,7 +19,7 @@ export const getProductById = async (req, res)=> {
   }
 };
 
-export const createProduct = async (req, res) => {
+ const createProduct = async (req, res) => {
   try {
     const product = await productService.createProduct(req.body);
     res.status(201).json(product);
@@ -28,7 +28,7 @@ export const createProduct = async (req, res) => {
   }
 };
 
-export const updateProduct = async (req, res) => {
+ const updateProduct = async (req, res) => {
   try {
     const product = await productService.updateProduct(req.params.id, req.body);
     if (!product) return res.status(404).json({ error: "Product not found" });
@@ -38,7 +38,7 @@ export const updateProduct = async (req, res) => {
   }
 };
 
-export const deleteProduct = async (req, res) => {
+ const deleteProduct = async (req, res) => {
   try {
     await productService.deleteProduct(req.params.id);
     res.json({ message: "Product deleted" });
@@ -46,3 +46,11 @@ export const deleteProduct = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+module.exports = {
+  getAllProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+}
