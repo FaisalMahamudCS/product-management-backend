@@ -33,10 +33,10 @@ router.post("/", authenticate, async (req, res) => {
       orderItems.push({ product: product._id, quantity: item.quantity, price: product.price });
     }
 
-    const order = await Order.create({ user: req.user.id, items: orderItems, totalAmount });
+    const order = await Order.create({ user: req.user.sub, items: orderItems,total_amount: totalAmount });
     res.status(201).json(order);
   } catch (error) {
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: error });
   }
 });
 
