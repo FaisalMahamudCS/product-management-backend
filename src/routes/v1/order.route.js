@@ -57,4 +57,31 @@ router.get("/:id", authenticate, async (req, res) => {
   }
 });
 
+// New route to update order status
+router.patch("/:id", authenticate, async (req, res) => {
+  const { status } = req.body;
+  let validStatuses = ["pending", "processing", "shipped", "delivered", "cancelled"];
+
+  if (!validStatuses.includes(status)) {
+    return res.status(400).json({ error: "Invalid status" });
+  }
+
+  try {
+    const order = await Order.findById(req.params.id);
+    if (!order) return res.status(404).json({ error: "Order not found" });
+
+    // Allow only admin or owner to update order status
+    if (order.user._id.toString() !== req.user.id && req.user.role !== "admin") {
+      return res.status(403).json({ error: "Unauthorized" });
+    }
+
+    order.status = status;
+    await order.save();
+
+    res.json({ message: "Order status updated", order });
+  } catch (error) {
+    res.status(500).json({ error: error.message});
+  }
+});
+
 module.exports = router;
