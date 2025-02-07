@@ -46,6 +46,7 @@ router.post("/",authenticate, async (req, res) => {
   }
 });
 
+
 // ✅ Remove a product from the cart
 router.delete("/:id", authenticate, async (req, res) => {
   try {
