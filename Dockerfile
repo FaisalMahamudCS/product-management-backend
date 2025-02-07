@@ -11,7 +11,7 @@ COPY package.json yarn.lock ./
 USER node
 
 # Install dependencies
-RUN yarn install --pure-lockfile
+RUN yarn install
 
 # Copy the rest of the application code
 COPY --chown=node:node . .
