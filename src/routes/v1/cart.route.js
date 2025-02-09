@@ -8,8 +8,8 @@ const router = express.Router();
 // ✅ Fetch user's cart
 router.get("/", authenticate, async (req, res) => {
   try {
-    const cart = await Cart.findOne({ user: req.user.sub }).populate("items.product", "name price");
-    console.log(cart);
+    const cart = await Cart.findOne({ user: req.user.sub }).populate("items.product", "name price image_url");
+    console.log(cart); 
     res.json(cart || { items: [] });
   } catch (error) {
     res.status(500).json({ error: "Server error" });
