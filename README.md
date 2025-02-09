@@ -1,5 +1,3 @@
-
-
 ## Quick Start
 
 To create a project, simply run:
@@ -19,7 +17,7 @@ npm init nodejs-ts-app <project-name>
 Clone the repo:
 
 ```bash
-
+git clone <repo-url>
 ```
 
 Install the dependencies:
@@ -36,8 +34,6 @@ cp .env.example .env
 # open .env and modify the environment variables (if needed)
 ```
 
-
-
 Running locally:
 
 ```bash
@@ -50,19 +46,19 @@ Running in production:
 yarn start
 ```
 
-Compiling to JS from TS
+Compiling to JS from TS:
 
 ```bash
 yarn compile
 ```
 
-Compiling to JS from TS in watch mode
+Compiling to JS from TS in watch mode:
 
 ```bash
 yarn compile:watch
 ```
 
-Commiting changes
+Committing changes:
 
 ```bash
 yarn commit
@@ -118,17 +114,17 @@ yarn prettier:fix
 
 ## Making Changes
 
-Run `yarn dev` so you can compile Typescript(.ts) files in watch mode
+Run `yarn dev` so you can compile TypeScript (.ts) files in watch mode:
 
 ```bash
 yarn dev
 ```
 
-Add your changes to TypeScript(.ts) files which are in the src folder. The files will be automatically compiled to JS if you are in watch mode.
+Add your changes to TypeScript (.ts) files which are in the `src` folder. The files will be automatically compiled to JS if you are in watch mode.
 
-Add tests for the new feature
+Add tests for the new feature.
 
-Run `yarn test:ts` to make sure all Typescript tests pass.
+Run `yarn test:ts` to make sure all TypeScript tests pass:
 
 ```bash
 yarn test:ts
@@ -168,6 +164,8 @@ CLIENT_URL=http://localhost:5000
 ## Project Structure
 
 ```
+<project-structure>
+```
 
 ## API Documentation
 
@@ -191,4 +189,31 @@ List of available routes:
 `PATCH /v1/users/:userId` - update user\
 `DELETE /v1/users/:userId` - delete user
 
-## Error Handling
+**Product routes**:\
+`POST /v1/products` - create a product\
+`GET /v1/products` - get all products\
+`GET /v1/products/:productId` - get product\
+`PATCH /v1/products/:productId` - update product\
+`DELETE /v1/products/:productId` - delete product
+
+**Order routes**:\
+`POST /v1/orders` - create an order\
+`GET /v1/orders` - get all orders\
+`GET /v1/orders/:orderId` - get order\
+`PATCH /v1/orders/:orderId` - update order\
+`DELETE /v1/orders/:orderId` - delete order
+
+**Cart routes**:\
+`POST /v1/carts` - create a cart\
+`GET /v1/carts` - get all carts\
+`GET /v1/carts/:cartId` - get cart\
+`PATCH /v1/carts/:cartId` - update cart\
+`DELETE /v1/carts/:cartId` - delete cart
+
+**Category routes**:\
+`POST /v1/categories` - create a category\
+`GET /v1/categories` - get all categories\
+`GET /v1/categories/:categoryId` - get category\
+`PATCH /v1/categories/:categoryId` - update category\
+`DELETE /v1/categories/:categoryId` - delete category
+```
