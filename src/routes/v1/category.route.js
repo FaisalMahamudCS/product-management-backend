@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
   res.json(categories);
 });
 
-router.post("/" , async (req, res) => {
+router.post("/" , authenticate, authorizeAdmin,async (req, res) => {
   const category = await Category.create(req.body);
   res.status(201).json(category);
 });
