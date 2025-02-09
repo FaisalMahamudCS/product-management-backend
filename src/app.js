@@ -13,8 +13,17 @@ const { authLimiter } = require('./middlewares/rateLimiter');
 const routes = require('./routes/v1');
 const { errorConverter, errorHandler } = require('./middlewares/error');
 const ApiError = require('./utils/ApiError');
+const { createServer } = require('http');
+const { Server: SocketIOServer } = require('socket.io');
 
 const app = express();
+const server = createServer(app);
+ const io = new SocketIOServer(server, {
+  cors: {
+    origin: "http://localhost:3000", // Replace with your frontend URL
+    methods: ["GET", "POST"],
+  },
+});
 
 if (config.env !== 'test') {
   app.use(morgan.successHandler);
@@ -64,4 +73,11 @@ app.use(errorConverter);
 // handle error
 app.use(errorHandler);
 
-module.exports = app;
+// Start the server
+const PORT = process.env.PORT || 3001;
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+// Export the io instance for use in routes
+module.exports = { app, io };
